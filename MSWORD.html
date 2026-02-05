@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS Word Basic Proficiency Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2b579a; /* MS Word Blue */
+        }
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: #e7eff6;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .question {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #2b579a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #1e3e6d;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            color: #2d572c;
+        }
+        #timer {
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>MS Word Basic Test</h1>
+
+    <div class="info-section">
+        <div>
+            <label>Candidate Name: </label>
+            <input type="text" id="candidateName" placeholder="Enter your name">
+        </div>
+        <div>
+            Time Left: <span id="timer">30:00</span>
+        </div>
+    </div>
+
+    <form id="quizForm">
+        <div class="question">
+            <p>1. What is the main use of Microsoft Word?</p>
+            <div class="options">
+                <label><input type="radio" name="q1" value="0"> Creating videos</label>
+                <label><input type="radio" name="q1" value="1"> Creating text documents</label>
+                <label><input type="radio" name="q1" value="0"> Calculating math</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>2. Which shortcut key is used to "Save" a document?</p>
+            <div class="options">
+                <label><input type="radio" name="q2" value="1"> Ctrl + S</label>
+                <label><input type="radio" name="q2" value="0"> Ctrl + P</label>
+                <label><input type="radio" name="q2" value="0"> Ctrl + V</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>3. To make text "Bold," which button do you click?</p>
+            <div class="options">
+                <label><input type="radio" name="q3" value="0"> I</label>
+                <label><input type="radio" name="q3" value="1"> B</label>
+                <label><input type="radio" name="q3" value="0"> U</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>4. How do you "Copy" a piece of text?</p>
+            <div class="options">
+                <label><input type="radio" name="q4" value="0"> Ctrl + V</label>
+                <label><input type="radio" name="q4" value="1"> Ctrl + C</label>
+                <label><input type="radio" name="q4" value="0"> Ctrl + Z</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>5. What is the keyboard shortcut for "Paste"?</p>
+            <div class="options">
+                <label><input type="radio" name="q5" value="0"> Ctrl + P</label>
+                <label><input type="radio" name="q5" value="1"> Ctrl + V</label>
+                <label><input type="radio" name="q5" value="0"> Ctrl + S</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>6. Which tool helps you find and fix spelling mistakes?</p>
+            <div class="options">
+                <label><input type="radio" name="q6" value="0"> Zoom</label>
+                <label><input type="radio" name="q6" value="1"> Spelling and Grammar</label>
+                <label><input type="radio" name="q6" value="0"> Format Painter</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>7. Which shortcut do you use to "Undo" a mistake?</p>
+            <div class="options">
+                <label><input type="radio" name="q7" value="1"> Ctrl + Z</label>
+                <label><input type="radio" name="q7" value="0"> Ctrl + Y</label>
+                <label><input type="radio" name="q7" value="0"> Ctrl + U</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>8. Which option changes the page direction (Portrait/Landscape)?</p>
+            <div class="options">
+                <label><input type="radio" name="q8" value="0"> Font Size</label>
+                <label><input type="radio" name="q8" value="1"> Orientation</label>
+                <label><input type="radio" name="q8" value="0"> Margins</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>9. How do you select all text in a document?</p>
+            <div class="options">
+                <label><input type="radio" name="q9" value="1"> Ctrl + A</label>
+                <label><input type="radio" name="q9" value="0"> Ctrl + S</label>
+                <label><input type="radio" name="q9" value="0"> Ctrl + E</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>10. To put a line under a word, use:</p>
+            <div class="options">
+                <label><input type="radio" name="q10" value="0"> Bold</label>
+                <label><input type="radio" name="q10" value="1"> Underline</label>
+                <label><input type="radio" name="q10" value="0"> Italic</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>11. Which tab do you click to add a Picture?</p>
+            <div class="options">
+                <label><input type="radio" name="q11" value="0"> Home</label>
+                <label><input type="radio" name="q11" value="1"> Insert</label>
+                <label><input type="radio" name="q11" value="0"> View</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>12. Shortcut key to "Print" a document?</p>
+            <div class="options">
+                <label><input type="radio" name="q12" value="1"> Ctrl + P</label>
+                <label><input type="radio" name="q12" value="0"> Ctrl + M</label>
+                <label><input type="radio" name="q12" value="0"> Ctrl + B</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>13. Default file extension for Word?</p>
+            <div class="options">
+                <label><input type="radio" name="q13" value="0"> .mp3</label>
+                <label><input type="radio" name="q13" value="1"> .docx</label>
+                <label><input type="radio" name="q13" value="0"> .jpg</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>14. To move text from one place to another, use:</p>
+            <div class="options">
+                <label><input type="radio" name="q14" value="0"> Copy and Paste</label>
+                <label><input type="radio" name="q14" value="1"> Cut and Paste</label>
+                <label><input type="radio" name="q14" value="0"> Save As</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>15. Which alignment puts text in the middle?</p>
+            <div class="options">
+                <label><input type="radio" name="q15" value="0"> Left</label>
+                <label><input type="radio" name="q15" value="1"> Center</label>
+                <label><input type="radio" name="q15" value="0"> Right</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>16. How do you change the size of letters?</p>
+            <div class="options">
+                <label><input type="radio" name="q16" value="0"> Font Color</label>
+                <label><input type="radio" name="q16" value="1"> Font Size</label>
+                <label><input type="radio" name="q16" value="0"> Bold</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>17. What is a "Header"?</p>
+            <div class="options">
+                <label><input type="radio" name="q17" value="0"> Bottom of page</label>
+                <label><input type="radio" name="q17" value="1"> Top of page</label>
+                <label><input type="radio" name="q17" value="0"> Middle of page</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>18. Shortcut for a "New" blank document?</p>
+            <div class="options">
+                <label><input type="radio" name="q18" value="1"> Ctrl + N</label>
+                <label><input type="radio" name="q18" value="0"> Ctrl + O</label>
+                <label><input type="radio" name="q18" value="0"> Ctrl + W</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>19. To search for a word, use:</p>
+            <div class="options">
+                <label><input type="radio" name="q19" value="1"> Ctrl + F</label>
+                <label><input type="radio" name="q19" value="0"> Ctrl + H</label>
+                <label><input type="radio" name="q19" value="0"> Ctrl + K</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>20. What are "Margins"?</p>
+            <div class="options">
+                <label><input type="radio" name="q20" value="0"> Text colors</label>
+                <label><input type="radio" name="q20" value="1"> White space at edges</label>
+                <label><input type="radio" name="q20" value="0"> Font types</label>
+            </div>
+        </div>
+
+        <button type="button" onclick="submitQuiz()">Submit Test</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    // Timer Script
+    let time = 1800; // 30 minutes in seconds
+    const timerElement = document.getElementById('timer');
+
+    setInterval(() => {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        timerElement.innerHTML = `${minutes}:${seconds}`;
+        if (time > 0) time--;
+    }, 1000);
+
+    // Scoring Script
+    function submitQuiz() {
+        const name = document.getElementById('candidateName').value;
+        if (!name) {
+            alert("Please enter your name first!");
+            return;
+        }
+
+        const form = document.getElementById('quizForm');
+        const formData = new FormData(form);
+        let score = 0;
+
+        for (let value of formData.values()) {
+            score += parseInt(value);
+        }
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `Candidate: ${name}<br>Your Score: ${score} / 20`;
+        
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+</script>
+
+</body>
+</html>
