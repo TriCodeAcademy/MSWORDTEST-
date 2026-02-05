@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS Word Assessment</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#f2f4f7;margin:0}
+.header{background:#0d4d8b;color:#fff;padding:30px;text-align:center}
+.container{max-width:800px;margin:30px auto;background:#fff;padding:25px;border-radius:10px;box-shadow:0 5px 20px rgba(0,0,0,.1)}
+button{padding:12px 18px;border:none;border-radius:6px;background:#1f6feb;color:#fff;font-weight:bold;cursor:pointer;margin:5px}
+button:hover{background:#155ab6}
+.hidden{display:none}
+.option{margin:8px 0}
+.timer{font-weight:bold;color:#d9534f;float:right}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>TRICODE ACADEMY</h1>
+<h3>MS WORD PROFESSIONAL TEST</h3>
+</div>
+
+<div class="container" id="start">
+<h2>Enter Student Name</h2>
+<input type="text" id="name" placeholder="Full Name" style="width:100%;padding:10px;margin:10px 0">
+<button onclick="startExam()">Start Exam</button>
+</div>
+
+<div class="container hidden" id="exam">
+<div class="timer">Time Left: <span id="time">30:00</span></div>
+<h3 id="qtext"></h3>
+<div id="options"></div>
+<button onclick="prevQ()">Previous</button>
+<button onclick="nextQ()">Next</button>
+</div>
+
+<div class="container hidden" id="result">
+<h2 id="rname"></h2>
+<h3 id="score"></h3>
+</div>
+
+<script>
+const questions=[
+{q:"Shortcut to Copy?",o:["Ctrl+C","Ctrl+X","Ctrl+V","Ctrl+P"],a:0},
+{q:"Shortcut to Paste?",o:["Ctrl+V","Ctrl+P","Ctrl+S","Ctrl+A"],a:0},
+{q:"Home tab contains?",o:["Font tools","Mail merge","Themes","Macros"],a:0},
+{q:"Insert tab used for?",o:["Add pictures","Save file","Print","Exit"],a:0},
+{q:"Bold shortcut?",o:["Ctrl+B","Ctrl+I","Ctrl+U","Ctrl+L"],a:0},
+{q:"Italic shortcut?",o:["Ctrl+I","Ctrl+B","Ctrl+U","Ctrl+R"],a:0},
+{q:"Underline shortcut?",o:["Ctrl+U","Ctrl+I","Ctrl+B","Ctrl+K"],a:0},
+{q:"Save shortcut?",o:["Ctrl+S","Ctrl+O","Ctrl+N","Ctrl+W"],a:0},
+{q:"New document?",o:["Ctrl+N","Ctrl+T","Ctrl+Shift+N","Ctrl+D"],a:0},
+{q:"Insert table from?",o:["Insert tab","Design tab","Layout tab","Review tab"],a:0},
+{q:"Page color option in?",o:["Design","Insert","Home","View"],a:0},
+{q:"Find shortcut?",o:["Ctrl+F","Ctrl+H","Ctrl+G","Ctrl+K"],a:0},
+{q:"Replace shortcut?",o:["Ctrl+H","Ctrl+R","Ctrl+F","Ctrl+Alt"],a:0},
+{q:"Select all?",o:["Ctrl+A","Ctrl+S","Ctrl+E","Ctrl+Q"],a:0},
+{q:"Align center?",o:["Ctrl+E","Ctrl+L","Ctrl+R","Ctrl+J"],a:0},
+{q:"Insert picture?",o:["Insert > Picture","Home > Font","Design > Theme","Layout > Size"],a:0},
+{q:"Font size option in?",o:["Home","View","Insert","Mailings"],a:0},
+{q:"Header & Footer?",o:["Insert tab","Review","View","Design"],a:0},
+{q:"Spelling check?",o:["F7","F5","F2","F9"],a:0},
+{q:"Print shortcut?",o:["Ctrl+P","Ctrl+Shift+P","Ctrl+L","Ctrl+Z"],a:0}
+];
+
+let i=0,answers=new Array(questions.length).fill(null),time=1800,timer;
+
+function startExam(){
+const n=document.getElementById('name').value.trim();
+if(!n) return alert('Enter name');
+document.getElementById('start').classList.add('hidden');
+document.getElementById('exam').classList.remove('hidden');
+loadQ();startTimer();}
+
+function loadQ(){
+const q=questions[i];
+document.getElementById('qtext').innerText=(i+1)+". "+q.q;
+let html='';
+q.o.forEach((op,idx)=>{
+html+=`<div class='option'><label><input type='radio' name='opt' ${answers[i]==idx?'checked':''} onclick='answers[${i}]=${idx}'> ${op}</label></div>`});
+document.getElementById('options').innerHTML=html;}
+
+function nextQ(){if(i<questions.length-1){i++;loadQ()}else finish();}
+function prevQ(){if(i>0){i--;loadQ()}}
+
+function startTimer(){timer=setInterval(()=>{time--;let m=Math.floor(time/60),s=time%60;document.getElementById('time').innerText=`${m}:${s.toString().padStart(2,'0')}`;if(time<=0)finish();},1000)}
+
+function finish(){clearInterval(timer);document.getElementById('exam').classList.add('hidden');document.getElementById('result').classList.remove('hidden');
+let score=0;answers.forEach((a,idx)=>{if(a===questions[idx].a)score++});
+document.getElementById('rname').innerText='Student: '+document.getElementById('name').value;
+document.getElementById('score').innerText='Score: '+score+' / '+questions.length;}
+</script>
+</body>
+</html>
