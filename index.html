@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS Word Professional Test</title>
+<style>
+body{font-family:Segoe UI,Arial;background:#f2f4f7;margin:0}
+.header{background:#0d4d8b;color:#fff;padding:28px;text-align:center}
+.container{max-width:850px;margin:30px auto;background:#fff;padding:25px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.12)}
+button{padding:12px 20px;border:none;border-radius:8px;background:#1f6feb;color:#fff;font-weight:600;cursor:pointer;margin:6px}
+button:hover{background:#155ab6}
+.hidden{display:none}
+.option{margin:10px 0}
+.timer{font-weight:bold;color:#d9534f;float:right}
+.circle{
+width:200px;height:200px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+font-size:28px;font-weight:bold;color:#0d4d8b;margin:20px auto;background:conic-gradient(#1f6feb 0deg,#e6e6e6 0deg);
+}
+.center{text-align:center}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>TRICODE ACADEMY</h1>
+<h3>MS WORD ASSESSMENT TEST</h3>
+</div>
+
+<div class="container" id="start">
+<h2>Enter Student Name</h2>
+<input type="text" id="name" placeholder="Full Name" style="width:100%;padding:12px;margin:10px 0">
+<button onclick="startExam()">Start Exam</button>
+</div>
+
+<div class="container hidden" id="exam">
+<div class="timer">Time Left: <span id="time">30:00</span></div>
+<h3 id="qtext"></h3>
+<div id="options"></div>
+<div class="center">
+<button onclick="prevQ()">Previous</button>
+<button onclick="nextQ()">Next</button>
+</div>
+</div>
+
+<div class="container hidden center" id="result">
+<h2 id="rname"></h2>
+<div class="circle" id="circle">0%</div>
+<h3 id="score"></h3>
+</div>
+
+<script>
+const questions=[
+{q:"Which tab contains Font size and Bold options?",o:["Home","Insert","Design","View"],a:0},
+{q:"Shortcut to Undo action?",o:["Ctrl+Z","Ctrl+Y","Ctrl+U","Ctrl+Backspace"],a:0},
+{q:"Insert Header option located in?",o:["Insert tab","Home tab","Design tab","Review tab"],a:0},
+{q:"Change page color from?",o:["Design tab","Insert tab","Layout tab","Home tab"],a:0},
+{q:"Shortcut to Save As?",o:["F12","Ctrl+S","Ctrl+Shift+S","Alt+S"],a:0},
+{q:"Insert picture into document from?",o:["Insert > Pictures","Home > Font","Review > Comment","View > Zoom"],a:0},
+{q:"Shortcut for Replace?",o:["Ctrl+H","Ctrl+R","Ctrl+F","Ctrl+Alt+R"],a:0},
+{q:"Create bullet list from?",o:["Home tab","Design tab","Layout tab","Insert tab"],a:0},
+{q:"Page orientation option in?",o:["Layout tab","Insert tab","Home tab","Review tab"],a:0},
+{q:"Shortcut for Print?",o:["Ctrl+P","Ctrl+Shift+P","Alt+P","F10"],a:0},
+{q:"Add table into document from?",o:["Insert tab","Design tab","Review tab","View tab"],a:0},
+{q:"Shortcut to Redo?",o:["Ctrl+Y","Ctrl+Z","Ctrl+R","Ctrl+Shift+Z"],a:0},
+{q:"Insert page break shortcut?",o:["Ctrl+Enter","Ctrl+Shift+Enter","Alt+Enter","Shift+Enter"],a:0},
+{q:"Change font style from?",o:["Home tab","Insert tab","View tab","Design tab"],a:0},
+{q:"Zoom document option in?",o:["View tab","Insert tab","Home tab","Layout tab"],a:0},
+{q:"Insert shapes option located in?",o:["Insert tab","Home tab","Review tab","Mailings tab"],a:0},
+{q:"Shortcut to select all text?",o:["Ctrl+A","Ctrl+S","Ctrl+Shift+A","Ctrl+T"],a:0},
+{q:"Watermark option located in?",o:["Design tab","Insert tab","View tab","Home tab"],a:0},
+{q:"Spelling and grammar check key?",o:["F7","F5","F9","F12"],a:0},
+{q:"Align right shortcut?",o:["Ctrl+R","Ctrl+E","Ctrl+L","Ctrl+J"],a:0}
+];
+
+let i=0,answers=new Array(questions.length).fill(null),time=1800,timer;
+
+function startExam(){
+const n=document.getElementById('name').value.trim();
+if(!n) return alert('Enter name');
+document.getElementById('start').classList.add('hidden');
+document.getElementById('exam').classList.remove('hidden');
+loadQ();startTimer();}
+
+function loadQ(){
+const q=questions[i];
+document.getElementById('qtext').innerText=(i+1)+". "+q.q;
+let html='';
+q.o.forEach((op,idx)=>{
+html+=`<div class='option'><label><input type='radio' name='opt' ${answers[i]==idx?'checked':''} onclick='answers[${i}]=${idx}'> ${op}</label></div>`});
+document.getElementById('options').innerHTML=html;}
+
+function nextQ(){if(i<questions.length-1){i++;loadQ()}else finish();}
+function prevQ(){if(i>0){i--;loadQ()}}
+
+function startTimer(){timer=setInterval(()=>{time--;let m=Math.floor(time/60),s=time%60;document.getElementById('time').innerText=`${m}:${s.toString().padStart(2,'0')}`;if(time<=0)finish();},1000)}
+
+function finish(){clearInterval(timer);document.getElementById('exam').classList.add('hidden');document.getElementById('result').classList.remove('hidden');
+let score=0;answers.forEach((a,idx)=>{if(a===questions[idx].a)score++});
+let percent=Math.round((score/questions.length)*100);
+document.getElementById('rname').innerText='Student: '+document.getElementById('name').value;
+document.getElementById('score').innerText=`${score} correct out of ${questions.length}`;
+let deg=percent*3.6;
+document.getElementById('circle').style.background=`conic-gradient(#1f6feb ${deg}deg,#e6e6e6 ${deg}deg)`;
+document.getElementById('circle').innerText=percent+'%';}
+</script>
+</body>
+</html>
