@@ -13,11 +13,12 @@ button:hover{background:#155ab6}
 .hidden{display:none}
 .option{margin:10px 0}
 .timer{font-weight:bold;color:#d9534f;float:right}
-.circle{
-width:200px;height:200px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-font-size:28px;font-weight:bold;color:#0d4d8b;margin:20px auto;background:conic-gradient(#1f6feb 0deg,#e6e6e6 0deg);
-}
+.circle{width:200px;height:200px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;color:#0d4d8b;margin:20px auto;background:conic-gradient(#1f6feb 0deg,#e6e6e6 0deg)}
 .center{text-align:center}
+.review{margin-top:20px;text-align:left}
+.correct{color:green}
+.wrong{color:red}
+.na{color:orange}
 </style>
 </head>
 <body>
@@ -33,7 +34,7 @@ font-size:28px;font-weight:bold;color:#0d4d8b;margin:20px auto;background:conic-
 </div>
 
 <div class="container hidden" id="exam">
-<div class="timer">Time Left: <span id="time">30:00</span></div>
+<div class="timer">Time Left: <span id="time">45:00</span></div>
 <h3 id="qtext"></h3>
 <div id="options"></div>
 <div class="center">
@@ -46,6 +47,7 @@ font-size:28px;font-weight:bold;color:#0d4d8b;margin:20px auto;background:conic-
 <h2 id="rname"></h2>
 <div class="circle" id="circle">0%</div>
 <h3 id="score"></h3>
+<div id="review" class="review"></div>
 </div>
 
 <script>
@@ -69,10 +71,20 @@ const questions=[
 {q:"Shortcut to select all text?",o:["Ctrl+A","Ctrl+S","Ctrl+Shift+A","Ctrl+T"],a:0},
 {q:"Watermark option located in?",o:["Design tab","Insert tab","View tab","Home tab"],a:0},
 {q:"Spelling and grammar check key?",o:["F7","F5","F9","F12"],a:0},
-{q:"Align right shortcut?",o:["Ctrl+R","Ctrl+E","Ctrl+L","Ctrl+J"],a:0}
+{q:"Align right shortcut?",o:["Ctrl+R","Ctrl+E","Ctrl+L","Ctrl+J"],a:0},
+{q:"Insert hyperlink from?",o:["Insert tab","Home tab","View tab","Layout tab"],a:0},
+{q:"Line spacing option in?",o:["Home tab","Insert tab","Design tab","View tab"],a:0},
+{q:"Header appears at?",o:["Top of page","Bottom of page","Middle","Side"],a:0},
+{q:"Footer appears at?",o:["Bottom of page","Top","Center","None"],a:0},
+{q:"File extension of Word?",o:[".docx",".txt",".xls",".ppt"],a:0},
+{q:"Operating System example?",o:["Windows","MS Word","Chrome","Paint"],a:0},
+{q:"Permanent memory?",o:["Hard Disk","RAM","Cache","Register"],a:0},
+{q:"Temporary memory?",o:["RAM","Hard Disk","DVD","Pen Drive"],a:0},
+{q:"Computer brain called?",o:["CPU","RAM","ROM","Monitor"],a:0},
+{q:"Shortcut for Find?",o:["Ctrl+F","Ctrl+H","Ctrl+Shift+F","Alt+F"],a:0}
 ];
 
-let i=0,answers=new Array(questions.length).fill(null),time=1800,timer;
+let i=0,answers=new Array(questions.length).fill(null),time=2700,timer;
 
 function startExam(){
 const n=document.getElementById('name').value.trim();
@@ -95,13 +107,17 @@ function prevQ(){if(i>0){i--;loadQ()}}
 function startTimer(){timer=setInterval(()=>{time--;let m=Math.floor(time/60),s=time%60;document.getElementById('time').innerText=`${m}:${s.toString().padStart(2,'0')}`;if(time<=0)finish();},1000)}
 
 function finish(){clearInterval(timer);document.getElementById('exam').classList.add('hidden');document.getElementById('result').classList.remove('hidden');
-let score=0;answers.forEach((a,idx)=>{if(a===questions[idx].a)score++});
+let score=0,reviewHTML='';
+answers.forEach((a,idx)=>{
+if(a===questions[idx].a){score++;reviewHTML+=`<p class='correct'>Q${idx+1}: Correct</p>`}
+else if(a===null){reviewHTML+=`<p class='na'>Q${idx+1}: Not Attempted — Correct: ${questions[idx].o[questions[idx].a]}</p>`}
+else{reviewHTML+=`<p class='wrong'>Q${idx+1}: Wrong — Correct: ${questions[idx].o[questions[idx].a]}</p>`}
+});
 let percent=Math.round((score/questions.length)*100);
 document.getElementById('rname').innerText='Student: '+document.getElementById('name').value;
 document.getElementById('score').innerText=`${score} correct out of ${questions.length}`;
-let deg=percent*3.6;
-document.getElementById('circle').style.background=`conic-gradient(#1f6feb ${deg}deg,#e6e6e6 ${deg}deg)`;
-document.getElementById('circle').innerText=percent+'%';}
+document.getElementById('review').innerHTML=reviewHTML;
+let deg=percent*3.6;document.getElementById('circle').style.background=`conic-gradient(#1f6feb ${deg}deg,#e6e6e6 ${deg}deg)`;document.getElementById('circle').innerText=percent+'%';}
 </script>
 </body>
 </html>
